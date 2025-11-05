@@ -14,6 +14,7 @@ import (
 const (
 	baseURL       = "https://scryfall.com/search"
 	defaultFilter = "(game:paper) unique:prints"
+	defaultRemove = "-t:basic"
 )
 
 // Regular expression to match card count prefix (e.g., "2 " or "2x ")
@@ -21,7 +22,9 @@ var cardCountRegex = regexp.MustCompile(`^\d+(?:x\s|\s)`)
 
 func main() {
 	var filter string
+	var remove string
 	flag.StringVar(&filter, "filter", defaultFilter, "Scryfall filter to append (e.g. '(game:paper) unique:prints')")
+	flag.StringVar(&remove, "remove", defaultRemove, "Scryfall removal filter to append (e.g. '-type:basic')")
 	flag.Parse()
 
 	// If no file argument is given, read from stdin
@@ -81,9 +84,12 @@ func main() {
 		// fmt.Printf("chunk: %q\n", prefixedChunk)
 
 		// Build the query string for this chunk
-		query := strings.Join(prefixedChunk, " or ")
+		query := "(" + strings.Join(prefixedChunk, " or ") + ")" // Wrap OR conditions in parentheses
+		if remove != "" {
+			query = query + " " + remove // Apply removal filter first
+		}
 		if filter != "" {
-			query = query + " " + filter
+			query = query + " " + filter // Apply other filters last
 		}
 		// fmt.Printf("query: %q\n", query)
 
