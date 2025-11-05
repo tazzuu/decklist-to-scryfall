@@ -29,3 +29,7 @@ Cards 81-85:
 https://scryfall.com/search?as=grid&order=name&q=%22Wave+Goodbye%22+or+%22Wild+Rose+Rebellion%22+or+%22Yavimaya+Coast%22+or+%22Zegana%2C+Utopian+Speaker%22+or+%22Hakbal+of+the+Surging+Soul%22+%28game%3Apaper%29+unique%3Aprints
 
 ```
+
+# Resources
+
+- https://scryfall.com/docs/syntax#exact , https://scryfall.com/advanced
