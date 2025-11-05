@@ -73,11 +73,19 @@ func main() {
 		}
 		chunk := cards[i:end]
 
+		// Add ! prefix to each quoted card name
+		prefixedChunk := make([]string, len(chunk))
+		for j, card := range chunk {
+			prefixedChunk[j] = "!" + card
+		}
+		// fmt.Printf("chunk: %q\n", prefixedChunk)
+
 		// Build the query string for this chunk
-		query := strings.Join(chunk, " or ")
+		query := strings.Join(prefixedChunk, " or ")
 		if filter != "" {
 			query = query + " " + filter
 		}
+		// fmt.Printf("query: %q\n", query)
 
 		// Construct and encode the URL
 		params := url.Values{}
